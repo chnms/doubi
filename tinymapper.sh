@@ -7,14 +7,11 @@ export PATH
 #	Description: tinyPortMapper
 #	Version: 1.0.2
 #	Author: Toyo
-#	Blog: https://doub.io/wlzy-36/
 #=================================================
 sh_ver="1.0.2"
-
 Folder="/usr/local/tinyPortMapper"
 File="/usr/local/tinyPortMapper/tinymapper"
 LOG_File="/tmp/tinymapper.log"
-
 Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"
 Info="${Green_font_prefix}[信息]${Font_color_suffix}" && Error="${Red_font_prefix}[错误]${Font_color_suffix}" && Tip="${Green_font_prefix}[注意]${Font_color_suffix}"
 
@@ -371,18 +368,15 @@ View_Log(){
 	tail -f ${LOG_File}
 }
 Update_Shell(){
-	sh_new_ver=$(wget --no-check-certificate -qO- -t1 -T3 "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/tinymapper.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1) && sh_new_type="github"
+	sh_new_ver=$(wget --no-check-certificate -qO- -t1 -T3 "https://raw.githubusercontent.com/chnms/doubi/master/tinymapper.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1) && sh_new_type="github"
 	[[ -z ${sh_new_ver} ]] && echo -e "${Error} 无法链接到 Github !" && exit 0
-	wget -N --no-check-certificate "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/tinymapper.sh" && chmod +x tinymapper.sh
+	wget -N --no-check-certificate "https://raw.githubusercontent.com/chnms/doubi/master/tinymapper.sh" && chmod +x tinymapper.sh
 	echo -e "脚本已更新为最新版本[ ${sh_new_ver} ] !(注意：因为更新方式为直接覆盖当前运行的脚本，所以可能下面会提示一些报错，无视即可)" && exit 0
 }
 check_sys
 [[ ${release} != "centos" ]] && [[ ${release} != "debian" ]] && [[ ${release} != "ubuntu" ]] && echo -e "${Error} 本脚本不支持当前系统 ${release} !" && exit 1
 echo && echo -e " tinyPortMapper 端口转发一键管理脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
-  -- Toyo | doub.io/wlzy-36 --
   
- ${Green_font_prefix}0.${Font_color_suffix} 升级脚本
-————————————
  ${Green_font_prefix}1.${Font_color_suffix} 安装 tinyPortMapper
  ${Green_font_prefix}2.${Font_color_suffix} 卸载 tinyPortMapper
  ${Green_font_prefix}3.${Font_color_suffix} 清空 tinyPortMapper 端口转发
