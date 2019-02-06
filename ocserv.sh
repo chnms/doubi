@@ -7,7 +7,6 @@ export PATH
 #	Description: ocserv AnyConnect
 #	Version: 1.0.5
 #	Author: Toyo
-#	Blog: https://doub.io/vpnzy-7/
 #=================================================
 sh_ver="1.0.5"
 file="/usr/local/sbin/ocserv"
@@ -81,14 +80,14 @@ Download_ocserv(){
 	
 	if [[ -e ${file} ]]; then
 		mkdir "${conf_file}"
-		wget --no-check-certificate -N -P "${conf_file}" "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/other/ocserv.conf"
+		wget --no-check-certificate -N -P "${conf_file}" "https://raw.githubusercontent.com/chnms/doubi/master/other/ocserv.conf"
 		[[ ! -s "${conf}" ]] && echo -e "${Error} ocserv 配置文件下载失败 !" && rm -rf "${conf_file}" && exit 1
 	else
 		echo -e "${Error} ocserv 编译安装失败，请检查！" && exit 1
 	fi
 }
 Service_ocserv(){
-	if ! wget --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/service/ocserv_debian -O /etc/init.d/ocserv; then
+	if ! wget --no-check-certificate https://raw.githubusercontent.com/chnms/doubi/master/service/ocserv_debian -O /etc/init.d/ocserv; then
 		echo -e "${Error} ocserv 服务 管理脚本下载失败 !" && over
 	fi
 	chmod +x /etc/init.d/ocserv
@@ -154,7 +153,7 @@ Installation_dependency(){
 			apt-get install vim net-tools pkg-config build-essential libgnutls28-dev libwrap0-dev liblz4-dev libseccomp-dev libreadline-dev libnl-nf-3-dev libev-dev gnutls-bin -y
 		else
 			mv /etc/apt/sources.list /etc/apt/sources.list.bak
-			wget --no-check-certificate -O "/etc/apt/sources.list" "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/sources/us.sources.list"
+			wget --no-check-certificate -O "/etc/apt/sources.list" "https://raw.githubusercontent.com/chnms/doubi/master/sources/us.sources.list"
 			apt-get update
 			apt-get install vim net-tools pkg-config build-essential libgnutls28-dev libwrap0-dev liblz4-dev libseccomp-dev libreadline-dev libnl-nf-3-dev libev-dev gnutls-bin -y
 			rm -rf /etc/apt/sources.list
@@ -505,22 +504,19 @@ Set_iptables(){
 	chmod +x /etc/network/if-pre-up.d/iptables
 }
 Update_Shell(){
-	sh_new_ver=$(wget --no-check-certificate -qO- -t1 -T3 "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/ocserv.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1) && sh_new_type="github"
+	sh_new_ver=$(wget --no-check-certificate -qO- -t1 -T3 "https://raw.githubusercontent.com/chnms/doubi/master/ocserv.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1) && sh_new_type="github"
 	[[ -z ${sh_new_ver} ]] && echo -e "${Error} 无法链接到 Github !" && exit 0
 	if [[ -e "/etc/init.d/ocserv" ]]; then
 		rm -rf /etc/init.d/ocserv
 		Service_ocserv
 	fi
-	wget -N --no-check-certificate "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/ocserv.sh" && chmod +x ocserv.sh
+	wget -N --no-check-certificate "https://raw.githubusercontent.com/chnms/doubi/master/ocserv.sh" && chmod +x ocserv.sh
 	echo -e "脚本已更新为最新版本[ ${sh_new_ver} ] !(注意：因为更新方式为直接覆盖当前运行的脚本，所以可能下面会提示一些报错，无视即可)" && exit 0
 }
 check_sys
 [[ ${release} != "debian" ]] && [[ ${release} != "ubuntu" ]] && echo -e "${Error} 本脚本不支持当前系统 ${release} !" && exit 1
 echo && echo -e " ocserv 一键安装管理脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
-  -- Toyo | doub.io/vpnzy-7 --
-  
- ${Green_font_prefix}0.${Font_color_suffix} 升级脚本
-————————————
+
  ${Green_font_prefix}1.${Font_color_suffix} 安装 ocserv
  ${Green_font_prefix}2.${Font_color_suffix} 卸载 ocserv
 ————————————
