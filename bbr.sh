@@ -7,7 +7,6 @@ export PATH
 #	Description: TCP-BBR
 #	Version: 1.0.22
 #	Author: Toyo
-#	Blog: https://doub.io/wlzy-16/
 #=================================================
 
 Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"
@@ -46,7 +45,6 @@ ${Tip} 内核版本列表请去这里获取：${Green_font_prefix}[ http://kerne
 	[[ -z "${latest_version}" ]] && get_latest_new_version
 	echo
 }
-# 本段获取最新版本的代码来源自: https://teddysun.com/489.html
 get_latest_new_version(){
 	echo -e "${Info} 检测稳定版内核最新版本中..."
 	latest_version=$(wget -qO- -t1 -T2 "http://kernel.ubuntu.com/~kernel-ppa/mainline/" | awk -F'\"v' '/v4.9.*/{print $2}' |grep -v '\-rc'| cut -d/ -f1 | sort -V | tail -1)
