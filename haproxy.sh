@@ -7,7 +7,6 @@ export PATH
 #	Description: HaProxy
 #	Version: 1.0.7
 #	Author: Toyo
-#	Blog: https://doub.io/wlzy-19/
 #=================================================
 
 HaProxy_file="/etc/haproxy"
