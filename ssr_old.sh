@@ -7,7 +7,6 @@ export PATH
 #	Description: Install the ShadowsocksR server
 #	Version: 1.2.9
 #	Author: Toyo
-#	Blog: https://doub.io/ss-jc42/
 #=================================================
 
 #ssr_pid="/var/run/shadowsocks.pid"
@@ -1514,7 +1513,7 @@ UninstallServerSpeeder(){
 	fi
 }
 BanBTPTSPAM(){
-	wget -4qO- raw.githubusercontent.com/ToyoDAdoubi/doubi/master/Get_Out_Spam.sh | bash
+	wget -4qO- raw.githubusercontent.com/chnms/doubi/master/Get_Out_Spam.sh | bash
 }
 InstallBBR(){
 	echo -e "${Info_install_bbr_0}"
@@ -1523,7 +1522,7 @@ InstallBBR(){
 	stty erase '^H' && read -p "(${Word_default}: ${Word_cancel}):" unyn
 	[[ -z ${unyn} ]] && echo "${Word_canceled}" && exit 1
 	if [[ ${unyn} == [Yy] ]]; then
-		wget -N --no-check-certificate https://softs.pw/Bash/bbr.sh && chmod +x bbr.sh && bash bbr.sh
+		wget -N --no-check-certificate raw.githubusercontent.com/chnms/doubi/blob/master/bbr.sh && chmod +x bbr.sh && bash bbr.sh
 	fi
 }
 SetCrontab_interval(){
