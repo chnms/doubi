@@ -5,7 +5,6 @@ export PATH
 #       System Required: CentOS/Debian/Ubuntu
 #       Description: iptables 封禁 BT、PT、SPAM（垃圾邮件）和自定义端口、关键词
 #       Version: 1.0.10
-#       Blog: https://doub.io/shell-jc2/
 #=================================================
 
 sh_ver="1.0.10"
@@ -427,9 +426,9 @@ Debian / Ubuntu 系统：apt-get install iptables -y"
 	fi
 }
 Update_Shell(){
-	sh_new_ver=$(wget --no-check-certificate -qO- -t1 -T3 "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/ban_iptables.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1)
+	sh_new_ver=$(wget --no-check-certificate -qO- -t1 -T3 "https://raw.githubusercontent.com/chnms/doubi/master/ban_iptables.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1)
 	[[ -z ${sh_new_ver} ]] && echo -e "${Error} 无法链接到 Github !" && exit 0
-	wget -N --no-check-certificate "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/ban_iptables.sh" && chmod +x ban_iptables.sh
+	wget -N --no-check-certificate "https://raw.githubusercontent.com/chnms/doubi/master/ban_iptables.sh" && chmod +x ban_iptables.sh
 	echo -e "脚本已更新为最新版本[ ${sh_new_ver} ] !(注意：因为更新方式为直接覆盖当前运行的脚本，所以可能下面会提示一些报错，无视即可)" && exit 0
 }
 check_sys
@@ -444,7 +443,6 @@ if [[ ! -z $action ]]; then
 	[[ $action = "unbanall" ]] && UnBan_ALL && exit 0
 fi
 echo && echo -e " iptables防火墙 封禁管理脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
-  -- Toyo | doub.io/shell-jc2 --
 
   ${Green_font_prefix}0.${Font_color_suffix} 查看 当前封禁列表
 ————————————
@@ -460,8 +458,6 @@ echo && echo -e " iptables防火墙 封禁管理脚本 ${Red_font_prefix}[v${sh_
   ${Green_font_prefix}9.${Font_color_suffix} 解封 自定义  端口
  ${Green_font_prefix}10.${Font_color_suffix} 解封 自定义关键词
  ${Green_font_prefix}11.${Font_color_suffix} 解封 所有  关键词
-————————————
- ${Green_font_prefix}12.${Font_color_suffix} 升级脚本
 " && echo
 read -e -p " 请输入数字 [0-12]:" num
 case "$num" in
