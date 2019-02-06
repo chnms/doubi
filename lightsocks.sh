@@ -7,7 +7,6 @@ export PATH
 #	Description: Lightsocks
 #	Version: 1.0.1
 #	Author: Toyo
-#	Blog: https://doub.io/lightsocks-jc1/
 #=================================================
 
 sh_ver="1.0.1"
@@ -105,14 +104,14 @@ Download_lightsocks(){
 }
 Service_lightsocks(){
 	if [[ ${release} = "centos" ]]; then
-		if ! wget --no-check-certificate "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/service/lightsocks_centos" -O /etc/init.d/lightsocks; then
+		if ! wget --no-check-certificate "https://raw.githubusercontent.com/chnms/doubi/master/service/lightsocks_centos" -O /etc/init.d/lightsocks; then
 			echo -e "${Error} Lightsocks服务 管理脚本下载失败 !" && rm -rf "${file}" && exit 1
 		fi
 		chmod +x "/etc/init.d/lightsocks"
 		chkconfig --add lightsocks
 		chkconfig lightsocks on
 	else
-		if ! wget --no-check-certificate "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/service/lightsocks_debian" -O /etc/init.d/lightsocks; then
+		if ! wget --no-check-certificate "https://raw.githubusercontent.com/chnms/doubi/master/service/lightsocks_debian" -O /etc/init.d/lightsocks; then
 			echo -e "${Error} Lightsocks服务 管理脚本下载失败 !" && rm -rf "${file}" && exit 1
 		fi
 		chmod +x "/etc/init.d/lightsocks"
@@ -336,7 +335,7 @@ View_lightsocks(){
 		echo -e " 密码\t: ${Green_font_prefix}${password}${Font_color_suffix}"
 		echo -e "${Lightsocks_link_1}"
 	echo
-	echo -e "${Tip} Lightsocks链接 仅适用于Windows系统的 Lightsocks Tools客户端[https://doub.io/dbrj-12/]。"
+	echo -e "${Tip} Lightsocks链接 仅适用于Windows系统的 Lightsocks Tools客户端。"
 	echo
 }
 urlsafe_base64(){
@@ -346,8 +345,7 @@ urlsafe_base64(){
 lightsocks_link(){
 	Lightsocks_URL_1=$(urlsafe_base64 "${ip}:${port}:${password}")
 	Lightsocks_URL="lightsocks://${Lightsocks_URL_1}"
-	Lightsocks_QRcode="http://doub.pw/qr/qr.php?text=${Lightsocks_URL}"
-	Lightsocks_link_1=" 链接\t: ${Red_font_prefix}${Lightsocks_URL}${Font_color_suffix} \n 二维码 : ${Red_font_prefix}${Lightsocks_QRcode}${Font_color_suffix} \n "
+	Lightsocks_link_1=" 链接\t: ${Red_font_prefix}${Lightsocks_URL}${Font_color_suffix} \n "
 }
 View_Log(){
 	check_installed_status
@@ -538,13 +536,13 @@ Set_iptables(){
 	fi
 }
 Update_Shell(){
-	sh_new_ver=$(wget --no-check-certificate -qO- -t1 -T3 "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/lightsocks.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1) && sh_new_type="github"
+	sh_new_ver=$(wget --no-check-certificate -qO- -t1 -T3 "https://raw.githubusercontent.com/chnms/doubi/master/lightsocks.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1) && sh_new_type="github"
 	[[ -z ${sh_new_ver} ]] && echo -e "${Error} 无法链接到 Github !" && exit 0
 	if [[ -e "/etc/init.d/lightsocks" ]]; then
 		rm -rf /etc/init.d/lightsocks
 		Service_lightsocks
 	fi
-	wget -N --no-check-certificate "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/lightsocks.sh" && chmod +x lightsocks.sh
+	wget -N --no-check-certificate "https://raw.githubusercontent.com/chnms/doubi/master/lightsocks.sh" && chmod +x lightsocks.sh
 	echo -e "脚本已更新为最新版本[ ${sh_new_ver} ] !(注意：因为更新方式为直接覆盖当前运行的脚本，所以可能下面会提示一些报错，无视即可)" && exit 0
 }
 check_sys
@@ -553,10 +551,7 @@ if [[ "${action}" == "monitor" ]]; then
 	crontab_monitor_lightsocks
 else
 	echo && echo -e "  Lightsocks 一键管理脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
-  ---- Toyo | doub.io/lightsocks-jc1 ----
   
- ${Green_font_prefix} 0.${Font_color_suffix} 升级脚本
-————————————
  ${Green_font_prefix} 1.${Font_color_suffix} 安装 Lightsocks
  ${Green_font_prefix} 2.${Font_color_suffix} 升级 Lightsocks
  ${Green_font_prefix} 3.${Font_color_suffix} 卸载 Lightsocks
