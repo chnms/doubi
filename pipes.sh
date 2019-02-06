@@ -6,7 +6,6 @@ export PATH
 #       Description: PipeSocks
 #       Version: 1.0.5
 #       Author: Toyo
-#       Blog: https://doub.io/pipesocks-jc1/
 #       Github: https://github.com/pipesocks/install
 #=================================================
 pipes_file="/usr/local/pipesocks"
@@ -83,14 +82,14 @@ Download_pipes(){
 }
 Service_pipes(){
 	if [[ ${release} = "centos" ]]; then
-		if ! wget --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/service/pipes_centos -O /etc/init.d/pipes; then
+		if ! wget --no-check-certificate https://raw.githubusercontent.com/chnms/doubi/master/service/pipes_centos -O /etc/init.d/pipes; then
 			echo -e "${Error} ShadowsocksR服务 管理脚本下载失败 !" && exit 1
 		fi
 		chmod +x /etc/init.d/pipes
 		chkconfig --add pipes
 		chkconfig pipes on
 	else
-		if ! wget --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/service/pipes_debian -O /etc/init.d/pipes; then
+		if ! wget --no-check-certificate https://raw.githubusercontent.com/chnms/doubi/master/service/pipes_debian -O /etc/init.d/pipes; then
 			echo -e "${Error} ShadowsocksR服务 管理脚本下载失败 !" && exit 1
 		fi
 		chmod +x /etc/init.d/pipes
