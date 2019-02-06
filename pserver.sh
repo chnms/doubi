@@ -7,7 +7,6 @@ export PATH
 #	Description: Peerflix Server
 #	Version: 1.1.0
 #	Author: Toyo
-#	Blog: https://doub.io/wlzy-13/
 #=================================================
 
 sh_ver="1.1.0"
@@ -111,14 +110,14 @@ Download_shanhou(){
 }
 Service_ps(){
 	if [[ ${release} = "centos" ]]; then
-		if ! wget --no-check-certificate "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/service/pserver_centos" -O /etc/init.d/pserver; then
+		if ! wget --no-check-certificate "https://raw.githubusercontent.com/chnms/doubi/master/service/pserver_centos" -O /etc/init.d/pserver; then
 			echo -e "${Error} Peerflix Server服务 管理脚本下载失败 !" && exit 1
 		fi
 		chmod +x /etc/init.d/pserver
 		chkconfig --add pserver
 		chkconfig pserver on
 	else
-		if ! wget --no-check-certificate "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/service/pserver_debian" -O /etc/init.d/pserver; then
+		if ! wget --no-check-certificate "https://raw.githubusercontent.com/chnms/doubi/master/service/pserver_debian" -O /etc/init.d/pserver; then
 			echo -e "${Error} Peerflix Server服务 管理脚本下载失败 !" && exit 1
 		fi
 		chmod +x /etc/init.d/pserver
@@ -305,20 +304,17 @@ Set_iptables(){
 	fi
 }
 Update_Shell(){
-	sh_new_ver=$(wget --no-check-certificate -qO- -t1 -T3 "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/pserver.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1) && sh_new_type="github"
+	sh_new_ver=$(wget --no-check-certificate -qO- -t1 -T3 "https://raw.githubusercontent.com/chnms/doubi/master/pserver.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1) && sh_new_type="github"
 	[[ -z ${sh_new_ver} ]] && echo -e "${Error} 无法链接到 Github !" && exit 0
 	if [[ -e "/etc/init.d/pserver" ]]; then
 		rm -rf /etc/init.d/pserver
 		Service_ps
 	fi
-	wget -N --no-check-certificate "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/pserver.sh" && chmod +x pserver.sh
+	wget -N --no-check-certificate "https://raw.githubusercontent.com/chnms/doubi/master/pserver.sh" && chmod +x pserver.sh
 	echo -e "脚本已更新为最新版本[ ${sh_new_ver} ] !(注意：因为更新方式为直接覆盖当前运行的脚本，所以可能下面会提示一些报错，无视即可)" && exit 0
 }
 echo && echo -e "  Peerflix Server 一键管理脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
-  ---- Toyo | doub.io/wlzy-13/ ----
   
- ${Green_font_prefix}0.${Font_color_suffix} 升级脚本
-
  ${Green_font_prefix}1.${Font_color_suffix} 安装 Peerflix Server
  ${Green_font_prefix}2.${Font_color_suffix} 卸载 Peerflix Server
 ————————————
