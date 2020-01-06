@@ -5,11 +5,9 @@ export PATH
 #=================================================
 #	System Required: CentOS/Debian/Ubuntu
 #	Description: MTProxy Golang
-#	Version: 1.0.1
-#	Author: Toyo
 #=================================================
 
-sh_ver="1.0.1"
+sh_ver="1.0.0"
 filepath=$(cd "$(dirname "$0")"; pwd)
 file_1=$(echo -e "${filepath}"|awk -F "$0" '{print $1}')
 file="/usr/local/mtproxy-go"
@@ -114,7 +112,7 @@ Download(){
 }
 Service(){
 	if [[ ${release} = "centos" ]]; then
-		if ! wget --no-check-certificate "https://raw.githubusercontent.com/chnms/doubi/master/service/mtproxy_go_centos" -O /etc/init.d/mtproxy-go; then
+		if ! wget --no-check-certificate "https://raw.githubusercontent.com/chnms/doubi/master/service/mtproxy_go_centos_old" -O /etc/init.d/mtproxy-go; then
 			echo -e "${Error} MTProxy服务 管理脚本下载失败 !"
 			rm -rf "${file}"
 			exit 1
@@ -123,7 +121,7 @@ Service(){
 		chkconfig --add mtproxy-go
 		chkconfig mtproxy-go on
 	else
-		if ! wget --no-check-certificate "https://raw.githubusercontent.com/chnms/doubi/master/service/mtproxy_go_debian" -O /etc/init.d/mtproxy-go; then
+		if ! wget --no-check-certificate "https://raw.githubusercontent.com/chnms/doubi/master/service/mtproxy_go_debian_old" -O /etc/init.d/mtproxy-go; then
 			echo -e "${Error} MTProxy服务 管理脚本下载失败 !"
 			rm -rf "${file}"
 			exit 1
@@ -694,7 +692,7 @@ Set_iptables(){
 	fi
 }
 Update_Shell(){
-	sh_new_ver=$(wget --no-check-certificate -qO- -t1 -T3 "https://raw.githubusercontent.com/chnms/doubi/master/mtproxy_go.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1) && sh_new_type="github"
+	sh_new_ver=$(wget --no-check-certificate -qO- -t1 -T3 "https://raw.githubusercontent.com/chnms/doubi/master/mtproxy_go_old.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1) && sh_new_type="github"
 	[[ -z ${sh_new_ver} ]] && echo -e "${Error} 无法链接到 Github !" && exit 0
 	if [[ -e "/etc/init.d/mtproxy-go" ]]; then
 		rm -rf /etc/init.d/mtproxy-go
